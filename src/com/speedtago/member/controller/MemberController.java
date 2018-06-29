@@ -164,10 +164,53 @@ public class MemberController extends HttpServlet {
 		} else if("mvidpass_search".equals(act)) {
 			//idpass 찾기: top > act=mvidpass_search > membercontroller > /login/idpass_search.jsp 이동 
 			PageMove.redirect(request, response, "/login/idpass_search.jsp");
-		} else if("mvmypage_modify".equals(act)) {
-			//mypage 찾기: top > act=mvmypage_modify > membercontroller > /mypage/mypage_modify.jsp 이동
-			PageMove.redirect(request, response, "/mypage/mypage_modify.jsp");
-		} else {
+		} else if("mvmypage".equals(act)) {
+			//mypage: top > act=mvmypage_modify > membercontroller > /mypage/mypage_modify.jsp 이동
+			  
+		//	MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
+			
+			String id = request.getParameter("id");
+			
+			MemberDetailDto memberDetailDto = new MemberDetailDto();
+//			String	id = memberDetailDto.getId();
+			
+			//			String id = request.getParameter("id");
+			System.out.println("id>>>>" + id);
+			memberDetailDto = memberService.getMember(id);
+						
+			memberDetailDto.setId(request.getParameter("id"));
+			memberDetailDto.setName(request.getParameter("name"));
+			memberDetailDto.setPass(request.getParameter("pass"));
+			memberDetailDto.setEmail1(request.getParameter("email1"));
+			memberDetailDto.setEmail2(request.getParameter("email2"));
+			memberDetailDto.setTel1(request.getParameter("tel1"));
+			memberDetailDto.setTel2(request.getParameter("tel2"));
+			memberDetailDto.setTel3(request.getParameter("tel3"));
+			memberDetailDto.setZipcode(request.getParameter("zipcode"));
+			memberDetailDto.setAddr1(request.getParameter("addr1"));
+			memberDetailDto.setAddr2(request.getParameter("addr2"));
+			
+			request.setAttribute("userInfo", memberDetailDto);
+			PageMove.forward(request, response, "/mypage/mypage_modify.jsp");
+			
+			
+		}else if("".equals(act)) {
+//			MemberDetailDto memberDetailDto = new MemberDetailDto();
+//			memberDetailDto.setId(request.getParameter("id"));
+//			memberDetailDto.setName(request.getParameter("name"));
+//			memberDetailDto.setPass(request.getParameter("pass"));
+//			memberDetailDto.setEmail1(request.getParameter("email1"));
+//			memberDetailDto.setEmail2(request.getParameter("email2"));
+//			memberDetailDto.setTel1(request.getParameter("tel1"));
+//			memberDetailDto.setTel2(request.getParameter("tel2"));
+//			memberDetailDto.setTel3(request.getParameter("tel3"));
+//			memberDetailDto.setZipcode(request.getParameter("zipcode"));
+//			memberDetailDto.setAddr1(request.getParameter("addr1"));
+//			memberDetailDto.setAddr2(request.getParameter("addr2"));
+//			int cnt = memberService.registerMember(memberDetailDto);
+//			PageMove.redirect(request, response, "/mypage/mypage_modify.jsp");
+		}
+		else {
 			PageMove.redirect(request, response, "/index.jsp");
 			//top.jsp -> 홈페이지 제목 -> "" >> login.jsp 이동
 			//top.jsp -> 메뉴- Home -> "" >> login.jsp 이동

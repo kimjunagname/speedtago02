@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.speedtago.member.model.*"%>
 
 <%
-  String root = request.getContextPath();
+	String root = request.getContextPath();
+	MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -34,6 +35,13 @@
          interval : 1000
       });
    });
+   
+  function update_form(){
+	  
+	  document.location.href = "<%=root%>/user?act=mvmypage&id" + id;
+	  System.out.println(href);
+  }
+   
 </script>
 <!-- ////////////////////////////javascript 선언종료////////////////////////// -->
 
@@ -55,12 +63,22 @@
 <div class="navbar" id="header">
 	<!-- Logo -->
 	<div align="right">
-		 <em><a href="<%=root%>/user?act=mvlogin">로그인 |</em></a>
-		 <em><a href="<%=root%>/user?act=mvidpass_search">아이디/비밀번호 찾기|</em></a>
-		 <em><a href="<%=root%>/user?act=mvjoin">회원가입|</em></a>
-		 <em><a href="<%=root%>/user?act=mvmypage_modify">마이페이지</em></a>|</em></a>
-		 <em><a href="<%=root%>/user?act=mvlogout">로그아웃</em></a>
+	<%
+	if(memberDto == null){
+	%>
+		 <em><a href="<%=root%>/user?act=mvlogin">Login |</em></a>
+		 <em><a href="<%=root%>/user?act=mvidpass_search">ID / Pass Srech|</em></a>
+		 <em><a href="<%=root%>/user?act=mvjoin">Member Join|</em></a> 
+	<%
+	} else {
+	%>
+     	 <em><%=memberDto.getId() %>WelCome|</em>
+		 <em><a href="javascript:update_form(<%=memberDto.getId() %>)">MyPage|</em></a>
+		 <em><a href="<%=root%>/user?act=mvlogout">LogOut|</em></a>
 		 
+	<%
+	}
+	%>
 	</div>
 	
 	<h1>

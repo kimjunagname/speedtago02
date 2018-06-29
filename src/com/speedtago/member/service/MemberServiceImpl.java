@@ -33,6 +33,7 @@ private MemberDao memberDao;
 	public MemberDetailDto getMember(String id) {
 		return memberDao.getMember(id);
 	}
+	
 
 	@Override
 	public int modifyMember(MemberDetailDto memberDetailDto) {

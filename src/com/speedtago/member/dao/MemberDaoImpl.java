@@ -71,12 +71,12 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public int registerMember(MemberDetailDto memberDetailDto) {
-		// ȸ������ ���
-		int cnt = 0; // cnt = 0 �ʱ�ȭ
+		// 회占쏙옙占쏙옙占쏙옙 占쏙옙占�
+		int cnt = 0; // cnt = 0 占십깍옙화
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
 		try {
-			// DB���� �� SQL�� �Է� �� ����	
+			// DB占쏙옙占쏙옙 占쏙옙 SQL占쏙옙 占쌉뤄옙 占쏙옙 占쏙옙占쏙옙	
 			conn = DBConnection.makeConnection();
 			String sql = "";
 			sql += "insert all \n";
@@ -115,7 +115,6 @@ public class MemberDaoImpl implements MemberDao {
 	public MemberDetailDto getMember(String id) {
 		
 		MemberDetailDto memberDetailDto = null;
-		int cnt = 0;
 		Connection conn = null;
 		PreparedStatement pstmt =null;
 		ResultSet rs = null;
@@ -123,17 +122,16 @@ public class MemberDaoImpl implements MemberDao {
 		try {
 			conn = DBConnection.makeConnection();
 			String sql = "";
-			sql += " select member.name, member.id, member.pass, member.email1, member.email2, member.joindate, MEMBER_DETAIL.zipcode, MEMBER_DETAIL.addr1, MEMBER_DETAIL.addr2, MEMBER_DETAIL.tel1, MEMBER_DETAIL.tel2, MEMBER_DETAIL.tel3 \n ";
-			sql += " from member, MEMBER_DETAIL \n ";
-			sql += " where member.id = MEMBER_DETAIL.id \n";
-			sql += " and member.id = ? ";
+			sql += " select m.name, m.id, m.pass, m.email1, m.email2, m.joindate, md.zipcode, md.addr1, md.addr2, md.tel1, md.tel2, md.tel3  \n ";
+			sql += " from member m, MEMBER_DETAIL md \n";
+			sql += " where m.id = md.id \n";
+			sql += " and m.id = ? ";
 			//sql += "select * from dual";
-			
-//			select member.name, member.id, member.pass, member.email1, member.email2, member.joindate, MEMBER_DETAIL.zipcode, MEMBER_DETAIL.addr1, MEMBER_DETAIL.addr2, MEMBER_DETAIL.tel1, MEMBER_DETAIL.tel2, MEMBER_DETAIL.tel3
-//			from member, MEMBER_DETAIL
-//			where member.id = 'java2' and MEMBER_DETAIL.id = 'java2';	
-			
-			
+			//select m.name, m.id, m.pass, m.email1, m.email2, m.joindate, md.zipcode, md.addr1, md.addr2, md.tel1, md.tel2, md.tel3 
+			//from member m, MEMBER_DETAIL md
+			//where m.id = md.id
+			//and m.id = 'user1';
+
 			pstmt = conn.prepareStatement(sql);
 			int indx = 0;
 			pstmt.setString(++indx, id);
@@ -161,6 +159,11 @@ public class MemberDaoImpl implements MemberDao {
 		return memberDetailDto;
 	}
 
+	
+	
+	
+	
+	
 	@Override
 	public int modifyMember(MemberDetailDto memberDetailDto) {
 		
