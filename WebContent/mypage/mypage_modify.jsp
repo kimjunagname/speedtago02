@@ -134,7 +134,7 @@
 						<tr>
 							<td>아이디</td>
 							<td colspan="2">
-								<input type="text" id="id" name="id" value="<%=memberDetailDto.getId() %>" readonly="readonly" size="12" style="text-align: left;" >
+								<input type="text" id="id" name="id" readonly="readonly" value="<%=memberDetailDto.getId() %>" size="12" style="text-align: left;" >
 							</td>
 							
 							<td>
@@ -221,7 +221,7 @@
 						
 						<tr>
 							<td align="left" colspan="2">
-							<input type="button" value="가입" onclick="javascript:join();">
+							<input type="button" value="수정" onclick="javascript:rejoin();">
 							</td>
 							<td>
 							<input type="button" value="탈퇴" onclick="javascript:secession();">

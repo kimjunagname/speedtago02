@@ -183,7 +183,7 @@ where m.id = 'user1';
 
 --Á¶È¸
 select * 
-from member
+from member;
 where id = 'many4354137';
 --Ä¿¹Ô
 commit
