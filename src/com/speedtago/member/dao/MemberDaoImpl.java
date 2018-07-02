@@ -374,7 +374,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public MemberDetailDto getPassSearch(MemberDetailDto memberDetailDto) {
-		int cnt = 0;
+		//int cnt = 0;
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -382,7 +382,7 @@ public class MemberDaoImpl implements MemberDao {
 				
 			conn = DBConnection.makeConnection();
 			String sql = "";
-			sql += " select m.pass \n" ; 
+			sql += " select m.pass, m.id \n" ; 
 			sql += " from member m \n" ;
 			sql += " where m.name = ? \n" ;
 			sql += " and m.email1 = ? \n" ;
@@ -406,14 +406,15 @@ public class MemberDaoImpl implements MemberDao {
 			if(rs.next()) {
 				memberDetailDto = new MemberDetailDto();
 				memberDetailDto.setPass(rs.getString("pass"));
+				memberDetailDto.setId(rs.getString("id"));
 			}
 			
-			cnt = rs.getInt(1);
+			//cnt = rs.getInt(1);
 			
 			System.out.println("DAO - getPassSearch pass>>>" + memberDetailDto.getPass());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			cnt = 0;
+			//cnt = 0;
 		} finally {
 			DBClose.close(conn, pstmt, rs);
 		}

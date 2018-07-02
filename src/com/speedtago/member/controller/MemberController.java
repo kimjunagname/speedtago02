@@ -169,15 +169,15 @@ public class MemberController extends HttpServlet {
 			PageMove.redirect(request, response, "/login/idpass_search.jsp");
 		} else if("mvid_search".equals(act)) {
 			//idpass 찾기: top > act=mvidpass_search > membercontroller > /login/idpass_search.jsp 이동 
-			String name = request.getParameter("name");
+			String name1 = request.getParameter("name1");
 			String email1 = request.getParameter("email1");
 			String email2 = request.getParameter("email2");
 			
-			System.out.println("name" + name);
-			System.out.println("email1 >> " + email1 + "email2 >>" + email2);
+			System.out.println("name1" + name1);
+			System.out.println("email1 >> " + email1 + "  email2 >>" + email2);
 			
 			MemberDetailDto memberDetailDto = new MemberDetailDto();
-			memberDetailDto.setName(request.getParameter("name"));
+			memberDetailDto.setName(request.getParameter("name1"));
 			memberDetailDto.setEmail1(request.getParameter("email1"));
 			memberDetailDto.setEmail2(request.getParameter("email2"));
 			memberDetailDto = memberService.getIdSearch(memberDetailDto);
@@ -185,7 +185,7 @@ public class MemberController extends HttpServlet {
 			System.out.println("id" + memberDetailDto.getId());
 			HttpSession session = request.getSession();
 			String id = (String) session.getAttribute("id");
-			System.out.println("id>>>>>>>>>>>>>>" + id);
+			System.out.println("id >>>>>>>>>>>>>>" + id);
 			request.setAttribute("id", id);
 			request.setAttribute("userInfo", memberDetailDto);
 			PageMove.forward(request, response, "/login/id_search_result.jsp");
@@ -198,8 +198,30 @@ public class MemberController extends HttpServlet {
 			
 			System.out.println("mvpass_search >> mvpass_search id >>>>" + request.getParameter("id"));
 			
-			System.out.println("mvpass_search" + request.getAttribute("id"));
-		
+			MemberDetailDto memberDetailDto = new MemberDetailDto();
+			memberDetailDto.setId(request.getParameter("id"));
+//			memberDetailDto.setPass(request.getParameter("pass"));
+			memberDetailDto.setName(request.getParameter("name"));
+			memberDetailDto.setEmail1(request.getParameter("email1"));
+			memberDetailDto.setEmail2(request.getParameter("email2"));
+						
+			request.setAttribute("userInfo", memberDetailDto);
+			int cnt = memberService.getPassChange(memberDetailDto);
+			
+			
+			request.setAttribute("userInfo", memberDetailDto);
+			System.out.println(memberDetailDto.getPass());
+			PageMove.forward(request, response, "/login/pass_change.jsp");
+			
+		} else if("mvpasschange".equals(act)) {
+			//mypage: top > act=mvpasschange > membercontroller > /mypage/mypage_modify.jsp 이동
+			
+			String id = request.getParameter("id");
+			String pass = request.getParameter("pass");
+			
+			System.out.println("id" + id);
+			System.out.println("pass" + pass);
+			
 			MemberDetailDto memberDetailDto = new MemberDetailDto();
 			memberDetailDto.setId(request.getParameter("id"));
 			memberDetailDto.setPass(request.getParameter("pass"));
@@ -207,41 +229,13 @@ public class MemberController extends HttpServlet {
 			request.setAttribute("userInfo", memberDetailDto);
 			int cnt = memberService.getPassChange(memberDetailDto);
 			
-			
-			request.setAttribute("userInfo", memberDetailDto);
-			System.out.println(memberDetailDto.getPass());
-			PageMove.forward(request, response, "/login/pass_search_change.jsp");
-			
-		} else if("mvpasschange".equals(act)) {
-			//mypage: top > act=mvpasschange > membercontroller > /mypage/mypage_modify.jsp 이동
-			
-			String name = request.getParameter("name");
-			String email1 = request.getParameter("email1");
-			String email2 = request.getParameter("email2");
-			String id = request.getParameter("id");
-			String pass = request.getParameter("pass");
-			
-			System.out.println("name" + name);
-			System.out.println("id" + id);
-			System.out.println("pass" + pass);
-			System.out.println("email1 >> " + email1 + "email2 >>" + email2);
-			
-			
-			MemberDetailDto memberDetailDto = new MemberDetailDto();
-			memberDetailDto.setId(request.getParameter("id"));
-			memberDetailDto.setEmail1(request.getParameter("email1"));
-			memberDetailDto.setEmail2(request.getParameter("email2"));
-			memberDetailDto.setName(request.getParameter("name"));
-			memberDetailDto.setPass(request.getParameter("pass"));
-			
-			request.setAttribute("userInfo", memberDetailDto);
-			memberDetailDto = memberService.getPassSearch(memberDetailDto);
-			
-			request.setAttribute("userInfo", memberDetailDto);
-			System.out.println(memberDetailDto.getPass());
-			
-			PageMove.forward(request, response, "/login/pass_search_result.jsp");
-			
+			//request.setAttribute("userInfo", memberDetailDto);
+			System.out.println("controll mvpasschange cnt " + cnt);
+			if(cnt != 0) {
+			PageMove.redirect(request, response, "/login/pass_search_result.jsp");
+			}else{
+			PageMove.redirect(request, response, "/index.jsp");		 
+			}
 			
 		}else if("mvmypage".equals(act)) {
 			//mypage: top > act=mvmypage_modify > membercontroller > /mypage/mypage_modify.jsp 이동

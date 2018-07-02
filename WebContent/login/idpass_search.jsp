@@ -49,7 +49,7 @@
               <tr>
                 <td>이름</td>
                 <td colspan="3">
-                  <input type="text" id="name" name="name" style="text-align:left; width:400px;  height:30px;">
+                  <input type="text" id="name1" name="name1" style="text-align:left; width:400px;  height:30px;">
                 </td>
               </tr>
               <tr>
@@ -94,18 +94,18 @@
     			<col style="width: 25%; "/>
     			<col style="width: 25%; "/>
   			</colgroup>
-  			
-             <tr>
-                <td>이름</td>
-                <td colspan="3">
-                  <input type="text" id="name" name="name" style="text-align:left; width:400px;  height:30px;">
-                </td>
-              </tr>
-              
+
               <tr>
                 <td>아이디</td>
                 <td colspan="2">
                   <input type="text" id="id" name="id" style="text-align:left; width:300px; height:30px;" placeholder="아이디 입력">
+                </td>
+              </tr>
+              
+              <tr>
+                <td>이름</td>
+                <td colspan="3">
+                  <input type="text" id="name" name="name" style="text-align:left; width:400px;  height:30px;">
                 </td>
               </tr>
               
@@ -156,7 +156,7 @@
 	</section>
 <script type="text/javascript">
 function idsearch() {
-	if(document.getElementById("name").value  == "") {
+	if(document.getElementById("name1").value  == "") {
    		alert("이름 입력!");
    		return;
    	} else if(document.getElementById("email1").value == "" && document.getElementById("email2").value == "") {

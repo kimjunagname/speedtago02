@@ -43,10 +43,19 @@
             
            <form name="passchangeform" method="post" action="">
 		   <input type="hidden" name="act" value="mvpasschange">
+			   
+			   <tr>
+                <td>아이디</td>
+                <td>
+                  <input type="text" id="id" name="id" readonly="readonly" value="<%=memberDetailDto.getId()%>" style="text-align:left; width:300px; height:30px;">
+                </td>
+               </tr>
+			   
+			   
 			   <tr>
                 <td>비밀번호</td>
                 <td>
-                  <input type="password" id="pass" name="pass" value="<%=memberDetailDto.getPass() %>" style="text-align:left; width:300px; height:30px;">
+                  <input type="password" id="pass" name="pass"  value="<%=memberDetailDto.getPass() %>" style="text-align:left; width:300px; height:30px;">
                 </td>
                </tr>
                 

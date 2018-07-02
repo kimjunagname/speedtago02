@@ -44,6 +44,12 @@ function pageBack(){
 	document.location.href = "<%=root%>/user?act=mvindex";
 	//history.back();
   }  
+  
+function mvidpass_search(){
+	document.location.href = "<%=root%>/user?act=mvidpass_search";
+  }  
+
+  
 </script>
 </head>
 <body>
@@ -66,7 +72,7 @@ function pageBack(){
 					<td>아이디 저장</td>
 				</tr>
 			</table>
-			<a href="#" ">아이디,비밀번호를 잊으셨습니까?</a><br> 
+			<a href="#" onclick="javascript:mvidpass_search();">아이디,비밀번호를 잊으셨습니까?</a><br> 
 			<a href="#" onclick="javascript:joinmove();">아직 회원이 아니십니까?</a>
 		</form>
 	</div>

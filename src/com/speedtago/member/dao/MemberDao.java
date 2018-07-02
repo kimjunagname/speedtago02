@@ -17,6 +17,5 @@ public interface MemberDao {
 	
 	MemberDetailDto getIdSearch(MemberDetailDto memberDetailDto);
 	MemberDetailDto getPassSearch(MemberDetailDto memberDetailDto);
-	
 	int getPassChange(MemberDetailDto memberDetailDto);
 }

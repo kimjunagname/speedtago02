@@ -38,7 +38,7 @@ public interface MemberService {
 	MemberDetailDto getIdSearch(MemberDetailDto memberDetailDto);
 	//pass 찾기
 	MemberDetailDto getPassSearch(MemberDetailDto memberDetailDto);
-	
+	//pass 변경
 	int getPassChange(MemberDetailDto memberDetailDto);
 	
 }

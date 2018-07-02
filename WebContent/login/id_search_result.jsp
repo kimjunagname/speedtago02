@@ -35,7 +35,7 @@
           </div>
           <div class="col-3 col-12-narrower">
             <table class="table table-striped">
-           <form name="loginform" method="post" action="">
+           <form name="loginform" method="get" action="">
 		   <input type="hidden" name="act" value="mvlogin">
 			   <tr>
                 <td>아이디</td>
@@ -45,7 +45,7 @@
               </tr>
               
               <tr>       
-                <td align="left" colspan="2">
+                <td align="right" colspan="2">
                    <button type="button" class="btn btn-primary btn-sm" onclick="javascript:movelogin();">로그인</button>
                 </td>
               </tr>

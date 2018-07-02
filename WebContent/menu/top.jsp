@@ -64,7 +64,7 @@
 	if(memberDto == null){
 	%>
 		 <em><a href="<%=root%>/user?act=mvlogin">Login |</em></a>
-		 <em><a href="<%=root%>/user?act=mvidpass_search">ID / Pass Srech|</em></a>
+		 <em><a href="<%=root%>/user?act=mvidpass_search">ID / Pass Search|</em></a>
 		 <em><a href="<%=root%>/user?act=mvjoin">Member Join|</em></a> 
 	<%
 	} else {

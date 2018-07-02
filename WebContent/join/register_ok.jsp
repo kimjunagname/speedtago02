@@ -1,35 +1,89 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8" import="com.speedtago.member.model.MemberDetailDto"%>
-<%
-	String root = request.getContextPath();
-	MemberDetailDto memberDetailDto = (MemberDetailDto) request.getAttribute("userInfo");
-	if (memberDetailDto != null) {
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-  <center>
-    <font color="lightgray"> 
-    <b><%=memberDetailDto.getName()%>(<%=memberDetailDto.getId()%>)</b>님 회원가입을 환영합니다.<br> 
-        가입하신 이메일은 <%=memberDetailDto.getEmail1()%>@<%=memberDetailDto.getEmail2()%>입니다.<br>
-        전화번호는 <%=memberDetailDto.getTel1()%>-<%=memberDetailDto.getTel2()%>-<%=memberDetailDto.getTel3()%>입니다.<br>
-        로그인 후 서비스를 이용 할 수 있습니다.<br> 
-      <a href="<%=root%>/user?act=mvlogin">로그인</a>
-   </font>
-  </center>
-</body>
-</html>
-<%
-	} else {
-%>
-<script>
-	alert("정상적인 접근이 아닙니다.");
-	document.location.href = "<%=root%>/user";
+	pageEncoding="UTF-8" import="com.speedtago.member.model.*"%>
+
+		<!-- Header -->
+		<!-- ---------------상단 고정-------------------- -->
+		<%@ include file="/menu/top.jsp" %>
+		<!-- ----------------------------------------- -->
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br>
+		<!-- 왼쪽 사이트 바 시작 [범위: 2]----------------------------------------------------- -->
+		<!-- Main -->
+		<section class="wrapper style1">
+		<div class="container">
+			<div class="row gtr-200">
+				<!-- 왼쪽 사이트 바 범위 조절[범위: 2]  <div class="col-2 col-12-narrower"> ----------------------------------------------------- -->
+				<!-- ---------------left 고정-------------------- -->
+				<!-- ----------------------------------------- -->
+				<!-- 왼쪽 사이트 바 종료----------------------------------------------------- -->
+
+				<!-- 내용 시작 [범위: 10]----------------------------------------------------- -->
+				    <!-- Main -->
+    
+        <div class="col-3 col-12-narrower">
+          <div id="sidebar1">
+            <!-- Sidebar 1 -->
+          </div>
+        </div>
+        <div class="col-6 col-12-narrower imp-narrower">
+          <div id="content">
+            <!-- Content -->
+            <div class="text-primary" align="left">
+              <font size="5"><strong>회원가입을 환영합니다.</strong></font><br>
+              &nbsp;
+            </div>   
+          </div>
+          <div class="col-3 col-12-narrower">
+            <table class="table table-striped">
+           <form name="loginform" method="get" action="">
+		   <input type="hidden" name="act" value="mvlogin">
+			   <tr>
+                <td>아이디</td>
+                <td colspan="2">
+                  <input type="text" id="id" name="id" value="<%=memberDetailDto.getId()%>" readonly="readonly" style="text-align:left; width:300px; height:30px;">
+                </td>
+               </tr>
+            
+             
+              <tr>       
+                <td align="right" colspan="2">
+                   <button type="button" class="btn btn-primary btn-sm" onclick="javascript:movelogin();">로그인</button>
+                </td>
+              </tr>
+              </form>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+				<!-- 내용 종료 [범위: 10]----------------------------------------------------- -->
+
+			</div>
+		</div>
+		</section>
+
+		<div class="col-3 col-12-narrower">
+			<div id="sidebar2">
+
+				<!-- Sidebar 2 -->
+
+			</div>
+		</div>
+	</div>
+	</div>
+	</section>
+	
+<script type="text/javascript">
+function movelogin(){
+	document.loginform.action = "<%=root%>/user";
+	document.loginform.submit();
+ }
 </script>
-<%
-}
-%>
+	<!-- Footer -->
+	<!-- -------------하단분리------------------------- -->
+	<%@ include file="/menu/bottom.jsp" %>
+	<!-- -------------------------------------------- -->
+
+	
+	
+	

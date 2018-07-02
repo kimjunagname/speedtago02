@@ -29,7 +29,7 @@
           <div id="content">
             <!-- Content -->
             <div class="text-primary" align="left">
-              <font size="5"><strong>비밀번호 변경</strong></font><br>
+              <font size="5"><strong>비밀번호가 변경되었습니다. 다시 로그인 해주세요</strong></font><br>
               &nbsp;
             </div>   
           </div>
@@ -41,25 +41,13 @@
    				<col style="width: 60%; "/>
   			</colgroup>
             
-           <form name="passchangeform" method="post" action="">
-		   <input type="hidden" name="act" value="mvpasschange">
-			   <tr>
-                <td>비밀번호</td>
-                <td>
-                  <input type="password" id="pass" name="pass" value="<%=memberDetailDto.getPass()%>" style="text-align:left; width:300px; height:30px;">
-                </td>
-               </tr>
-                
-               <tr>
-                <td>비밀번호 확인</td>
-                  <td>
-                  <input type="password" id="passcheck" name="passcheck" value="" style="text-align:left; width:300px; height:30px;">
-                </td>
-               </tr>
+           <form name="loginform" method="get" action="">
+		   <input type="hidden" name="act" value="mvlogin">
+		   	   			   
               
               <tr>       
                 <td align="right" colspan="2">
-                   <button type="button" class="btn btn-primary btn-sm" onclick="javascript:passchange();">비밀번호 변경</button>
+                   <button type="button" class="btn btn-primary btn-sm" onclick="javascript:movelogin1();">로그인</button>
                 </td>
               </tr>
               </form>
@@ -86,18 +74,10 @@
 	</section>
 	
 <script type="text/javascript">
-function passchange(){
-   	if(document.getElementById("pass").value  == "") {
-   		alert("비밀번호 입력!");
-   		return;
-   	} else if(document.getElementById("pass").value != document.getElementById("passcheck").value) {
-   		alert("비밀번호 확인!");
-   		return;
-   	} else {
-   		document.passchangeform.action = "<%=root%>/user";
-   		document.passchangeform.submit();
-   	}
-}
+function movelogin1(){
+	document.loginform.action = "<%=root%>/user";
+	document.loginform.submit();
+ }
 </script>
 	<!-- Footer -->
 	<!-- -------------하단분리------------------------- -->
