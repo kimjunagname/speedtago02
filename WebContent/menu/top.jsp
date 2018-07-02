@@ -3,7 +3,8 @@
 
 <%
 	String root = request.getContextPath();
-	MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
+    MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
+    MemberDetailDto memberDetailDto = (MemberDetailDto) request.getAttribute("userInfo");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -35,12 +36,7 @@
          interval : 1000
       });
    });
-   
-  function update_form(){
-	  
-	  document.location.href = "<%=root%>/user?act=mvmypage&id" + id;
-	  System.out.println(href);
-  }
+
    
 </script>
 <!-- ////////////////////////////javascript 선언종료////////////////////////// -->
@@ -63,6 +59,7 @@
 <div class="navbar" id="header">
 	<!-- Logo -->
 	<div align="right">
+	
 	<%
 	if(memberDto == null){
 	%>
@@ -73,8 +70,9 @@
 	} else {
 	%>
      	 <em><%=memberDto.getId() %>WelCome|</em>
-		 <em><a href="javascript:update_form(<%=memberDto.getId() %>)">MyPage|</em></a>
+		 <em><a href="<%=root %>/user?act=mvmypage">MyPage|</em></a>
 		 <em><a href="<%=root%>/user?act=mvlogout">LogOut|</em></a>
+
 		 
 	<%
 	}

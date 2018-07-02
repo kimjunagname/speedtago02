@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.speedtago.member.model.MemberDto" %>
+	pageEncoding="UTF-8" import="com.speedtago.member.model.*" %>
+
 
 <!-- Header -->
 <!-- ---------------상단 고정-------------------- -->
@@ -103,7 +104,7 @@
 				<div id="content">
 					<!-- Content -->
 					<div class="text-primary" align="left">
-						<font size="5"><strong>회원가입 - 회원정보 작성</strong></font><br>
+						<font size="5"><strong>회원정보수정</strong></font><br>
 						&nbsp;
 					</div>
 				</div>
@@ -113,8 +114,8 @@
 					</div>
 					
 					<!-- table 선언 -->
-					<form name ="joinform" method="post" action="">
-					<input type="hidden" name="act" value="register">
+					<form name ="rejoinform" method="post" action="">
+					<input type="hidden" name="act" value="mvmodify">
 	 
 					<table class="table table-striped" style="table-layout: fixed; width:800px; height: 15px;">
 						<!-- 컬럼 크기 조절 -->
@@ -128,13 +129,12 @@
 						
 						<tr>
 							<td>이름</td>
-							<td colspan="3"><input type="text" id="name" name="name" value="" size="12" placeholder="이름을 입력해 주세요"></td>
+							<td colspan="3"><input type="text" id="name" name="name" value="<%=memberDetailDto.getName() %>" size="12" ></td>
 						</tr>
 						<tr>
 							<td>아이디</td>
 							<td colspan="2">
-								<input type="text" id="id" name="id" value="" size="12" style="text-align: left;" placeholder="id를 입력해 주세요" onkeyup="javascript:idcheck();">
-							    
+								<input type="text" id="id" name="id" value="<%=memberDetailDto.getId() %>" readonly="readonly" size="12" style="text-align: left;" >
 							</td>
 							
 							<td>
@@ -146,21 +146,21 @@
 						<tr>
 							<td>비밀번호</td>
 							<td colspan="3">
-								<input type="password" id="pass" name="pass" size="12" placeholder="비밀번호를 입력해 주세요." maxlength="12"style="text-align: left;">
+								<input type="password" id="pass" name="pass" size="12" value="<%=memberDetailDto.getPass() %>" maxlength="12"style="text-align: left;">
 							</td>
 						</tr>
 						
 						<tr>
 							<td>비밀번호 확인</td>
 							<td colspan="3">
-								<input type="password" id="passcheck" name="passcheck" id="passcheck" size="12" maxlength="12" placeholder="비밀번호를 확인해주세요." style="text-align: left;">
+								<input type="password" id="passcheck" name="passcheck" id="passcheck" size="12" maxlength="12" value=<%=memberDetailDto.getPass() %> style="text-align: left;">
 							</td>
 						</tr>
 
 						<tr>
 							<td class="td1">연락처</td>
 							<td>
-								<select class="td3" id="tel1" name="tel1" value="" size="1" maxlength="3" style="width:180px; height: 60px;">
+								<select class="td3" id="tel1" name="tel1" value="" size="1" maxlength="3" value="<%=memberDetailDto.getTel1() %>" style="width:180px; height: 60px;">
 									<option value="010" >010</option>
 									<option value="011" >011</option>
 									<option value="016" >016</option>
@@ -169,10 +169,10 @@
 								</select> 
 							</td>
 							<td> 
-							   <input class="td3" type="text" id="tel2" name="tel2" value="" size="4" maxlength="4" >  
+							   <input class="td3" type="text" id="tel2" name="tel2" value="<%=memberDetailDto.getTel2() %>" size="4" maxlength="4" >  
 							</td>
 							<td>
-							   <input class="td3" type="text" id="tel3" name="tel3" value="" size="4" maxlength="4" >
+							   <input class="td3" type="text" id="tel3" name="tel3" value="<%=memberDetailDto.getTel3() %>" size="4" maxlength="4" >
 						 	</td>
 						</tr>
 						
@@ -180,7 +180,7 @@
 						<tr>
 							<td>우편번호</td>
 							<td colspan="2">
-								<input type="text" id="zipcode" name="zipcode" size="5"	maxlength="5" style="text-align: left;"	readonly="readonly" onclick="javascript:openzip();">
+								<input type="text" id="zipcode" name="zipcode" size="5"	maxlength="5" value="<%=memberDetailDto.getZipcode() %>" style="text-align: left;"	readonly="readonly" onclick="javascript:openzip();">
 							</td>
 							
 							<td>
@@ -192,38 +192,44 @@
 						<tr>
 							<td>주소</td>
 							<td colspan="3">
-								<input type="text" id="addr1" name="addr1" readonly="readonly" style="text-align: left; ">
+								<input type="text" id="addr1" name="addr1" value="<%=memberDetailDto.getAddr1() %>" readonly="readonly" style="text-align: left; ">
 							</td>
 						</tr>
 						
 						<tr>
 							<td>상세주소</td>
 							<td colspan="3">
-								<input type="text" id="addr2" name="addr2" style="text-align: left;">
+								<input type="text" id="addr2" name="addr2" value="<%=memberDetailDto.getAddr2() %>"style="text-align: left;">
 							</td>
 						</tr>
 						
 						<tr>
 							<td>이메일</td>
 							<td >
-								<input type="text" name="email1" id="email1" placeholder="이메일을 입력해 주세요" style="width:300px;">
+								<input type="text" name="email1" id="email1" value="<%=memberDetailDto.getEmail1() %>" style="width:300px;">
 							</td>
 							<td>
 								<font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@</font>
 							</td>
 							<td colspan="2">
-								<select name="email2" id ="email2" size="1" style="width:180px; height:60px;">
+								<select name="email2" id ="email2" size="1" value="<%=memberDetailDto.getEmail2() %>" style="width:180px; height:60px;">
 									<option value="naver.com">naver.com</option>
 									<option value="hanmail.net">hanmail.net</option>
 								</select>
 							</td>
 						</tr>
+						
 						<tr>
-							<td align="left" colspan="2"><input type="button" value="가입" onclick="javascript:join();">
+							<td align="left" colspan="2">
+							<input type="button" value="가입" onclick="javascript:join();">
 							</td>
-							<td align="right" colspan="2"><input type="reset" value="취소" >
+							<td>
+							<input type="button" value="탈퇴" onclick="javascript:secession();">
 							</td>
-						</tr>
+							<td align="right" colspan="2">
+							<input type="reset" value="취소" >
+							</td>
+						</tr>	
 					</table>
 				</form>
 				</div>
@@ -232,12 +238,11 @@
 </section>
 
   
-<script type="text/javascript" src="<%=root%>/assets/js/httpRequest.js"></script>   
 <script type="text/javascript">   
 ////////////////////////////javascript 선언//////////////////////////
 //join - member_modify, member_write에 사용됨
 //id 중복 체크, name null 값 확인, pass 비밀번호 일치 체크 함수
-   function join(){
+   function rejoin(){
    if(document.getElementById("pass").value  == "") {
    		alert("비밀번호 입력!");
    		return;
@@ -245,43 +250,21 @@
    		alert("비밀번호 확인!");
    		return;
    	} else {
-   		document.joinform.action = "<%=root%>/user";
-   		document.joinform.submit();
+   		document.rejoinform.action = "<%=root%>/user";
+   		document.rejoinform.submit();
    	}
    }
 //주소록 검색 함수
    function openzip(){
    	window.open("<%=root%>/user?act=mvzip","zip","top=200, left=300, width=400, height=300, menubar=no, status=no, toolbar=no, location=no, scrollbars=yes");
    }
-   var view;
-   var id;
-   var cnt = 1;
-   var size;
-   function idcheck() {
-   	view = document.getElementById("idresult");
-   	id = document.getElementById("id").value;
-   	if(id.length < 5 || id.length > 16) {
-   		view.innerHTML = "아이디는 5자이상 16자이하입니다.";
-   		return;
-   	}
-   	var params = "act=idsearch&id=" + id;
-   	sendRequest("<%=root%>/user", params, idresult, "GET");
-   }
-//ajax를 통한 id중복 실시간 확인
-   function idresult() {
-   	if(httpRequest.readyState == 4) {//처리완료
-   		if(httpRequest.status == 200) {
-   			cnt = httpRequest.responseText;
-   			if(cnt == 0) {
-   				view.innerHTML = '<font color="blue"><b>' + id + '</b>는</br> 사용 가능합니다.</font>';
-   			} else {
-   				view.innerHTML = '<font color="red"><b>' + id + '</b>는</br> 사용중입니다.</font>';
-   			}
-   		} else {
-   			alert("처리중 문제발생");
-   		}
-   	}
-   }
+   
+   
+  function secession(){
+ 	 document.rejoinform.action = "<%=root%>/user?act=mvsecession";
+   	 document.rejoinform.submit();
+  }
+   
 </script>
 <!-- ////////////////////////////javascript 선언종료////////////////////////// -->
 

@@ -71,12 +71,12 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public int registerMember(MemberDetailDto memberDetailDto) {
-		// 회占쏙옙占쏙옙占쏙옙 占쏙옙占�
-		int cnt = 0; // cnt = 0 占십깍옙화
+		
+		int cnt = 0; 
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
 		try {
-			// DB占쏙옙占쏙옙 占쏙옙 SQL占쏙옙 占쌉뤄옙 占쏙옙 占쏙옙占쏙옙	
+				
 			conn = DBConnection.makeConnection();
 			String sql = "";
 			sql += "insert all \n";
@@ -113,7 +113,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public MemberDetailDto getMember(String id) {
-		
+		System.out.println("DAO>>>>" + id);
 		MemberDetailDto memberDetailDto = null;
 		Connection conn = null;
 		PreparedStatement pstmt =null;
@@ -151,6 +151,10 @@ public class MemberDaoImpl implements MemberDao {
 				memberDetailDto.setTel2(rs.getString("tel2"));
 				memberDetailDto.setTel3(rs.getString("tel3"));
 			}
+			System.out.println("DAO1>>>>" + memberDetailDto.getId());
+			System.out.println("DAO2>>>>" + memberDetailDto.getName());
+			System.out.println("DAO2>>>>" + memberDetailDto.getTel3());
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -166,34 +170,120 @@ public class MemberDaoImpl implements MemberDao {
 	
 	@Override
 	public int modifyMember(MemberDetailDto memberDetailDto) {
-		
-		
-		
-		
-		
-		
-		/*
-		 * try{
-		 * cnt = u m
-		 * cnt = u m_d
-		 * com
-		 * } catch(){
-		 * roolback;
-		 * }
-		 * 
-		 * */
-		
-		
-		
 		int cnt = 0;
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		try {
+				
+			conn = DBConnection.makeConnection();
+			String sql = "";
+			sql += " update member \n" ; 
+			sql += " set \n" ;
+			sql += " name = ?, \n" ;
+			sql += " pass= ?, \n" ;
+			sql += " email1 = ?,  \n" ;
+			sql += " email2 = ?,  \n" ;
+			sql += " joindate = sysdate \n" ;
+			sql += " where id = ? " ;
+			
+			System.out.println("DAO_modifyMember>>>>" + memberDetailDto.getId());
+			
+			pstmt = conn.prepareStatement(sql);
+			int idx = 0; 
+			
+			pstmt.setString(++idx, memberDetailDto.getName());
+			pstmt.setString(++idx, memberDetailDto.getPass());
+			pstmt.setString(++idx, memberDetailDto.getEmail1());
+			pstmt.setString(++idx, memberDetailDto.getEmail2());
+			pstmt.setString(++idx, memberDetailDto.getId());
+		
+			cnt = pstmt.executeUpdate();
+			System.out.println("DAO_modifyMember>>cnt>>" + cnt);
+			
+			sql ="";
+			sql += "update member_detail \n" ;
+			sql += "set \n" ;
+			sql += "zipcode = ?, \n" ;
+			sql += "addr1 = ?, \n" ;
+			sql += "addr2 = ?, \n" ;
+			sql += "tel1 = ?, \n" ;
+			sql += "tel2 = ?, \n" ;
+			sql += "tel3 = ? \n" ;
+			sql += "where id = ? " ;
+
+			System.out.println("DAO_modifyMember>>>>" + memberDetailDto.getId());
+			
+			pstmt = conn.prepareStatement(sql);
+			idx = 0; 
+			pstmt.setString(++idx, memberDetailDto.getZipcode());
+			pstmt.setString(++idx, memberDetailDto.getAddr1());
+			pstmt.setString(++idx, memberDetailDto.getAddr2());
+			pstmt.setString(++idx, memberDetailDto.getTel1());
+			pstmt.setString(++idx, memberDetailDto.getTel2());
+			pstmt.setString(++idx, memberDetailDto.getTel3());
+			pstmt.setString(++idx, memberDetailDto.getId());
+			
+			cnt = pstmt.executeUpdate();
+			System.out.println("DAO_modifyMember>>cnt>>" + cnt);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conn = DBConnection.makeConnection();
+				String sql = "";
+				sql += " roolback; \n" ; 
+				pstmt = conn.prepareStatement(sql);
+				pstmt.executeUpdate();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			DBClose.close(conn, pstmt);
+		}
 		return cnt;
 	}
-
+	
+	
 	@Override
-	public void deleteMember(String id) {
+	public int deleteMember(String id) {
 
+		int cnt = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConnection.makeConnection();
+			String sql = "";
+			sql += "delete from member_detail where id = ? \n";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			sql = "";
+			sql += "delete from member where id = ? \n";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			cnt = 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			cnt = 0;
+			try {
+				conn = DBConnection.makeConnection();
+				String sql = "";
+				sql += " roolback; \n" ; 
+				pstmt = conn.prepareStatement(sql);
+				pstmt.executeUpdate();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+		return cnt;
 	}
-
+	
+	
 	@Override
 	public MemberDto login(Map<String, String> map) {
 		MemberDto memberDto = null;
@@ -225,6 +315,7 @@ public class MemberDaoImpl implements MemberDao {
 		return memberDto;
 	}
 
+
 	/*
 	 * try{
 	 * cnt = u m
@@ -235,8 +326,133 @@ public class MemberDaoImpl implements MemberDao {
 	 * }
 	 * 
 	 * */
+	
+	
+	
+	
+	@Override
+	public MemberDetailDto getIdSearch(MemberDetailDto memberDetailDto) {
+		int cnt = 0;
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+				
+			conn = DBConnection.makeConnection();
+			String sql = "";
+			sql += " select m.id \n" ; 
+			sql += " from member m \n" ;
+			sql += " where m.name = ? \n" ;
+			sql += " and m.email1 = ? \n" ;
+			sql += " and m.email2 = ? " ;
+			
+			System.out.println("DAO_getIdSearch>>>>" + memberDetailDto.getName());
+			System.out.println("DAO_getIdSearch>>>>" + memberDetailDto.getEmail1());
+			System.out.println("DAO_getIdSearch>>>>" + memberDetailDto.getEmail2());
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			int idx = 0; 
+			pstmt.setString(++idx, memberDetailDto.getName());
+			pstmt.setString(++idx, memberDetailDto.getEmail1());
+			pstmt.setString(++idx, memberDetailDto.getEmail2());
+		
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				memberDetailDto = new MemberDetailDto();
+				memberDetailDto.setId(rs.getString("id"));
+			}
+			System.out.println("DAO - getIdSearch id>>>" + memberDetailDto.getId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+		return memberDetailDto;
+	}
 
+	@Override
+	public MemberDetailDto getPassSearch(MemberDetailDto memberDetailDto) {
+		int cnt = 0;
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+				
+			conn = DBConnection.makeConnection();
+			String sql = "";
+			sql += " select m.pass \n" ; 
+			sql += " from member m \n" ;
+			sql += " where m.name = ? \n" ;
+			sql += " and m.email1 = ? \n" ;
+			sql += " and m.email2 = ?  \n" ;
+			sql += " and m.id = ?  " ;
+			
+			System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getName());
+			System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getEmail1());
+			System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getEmail2());
+			System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getId());
+			
+			pstmt = conn.prepareStatement(sql);
+			int idx = 0; 
+			pstmt.setString(++idx, memberDetailDto.getName());
+			pstmt.setString(++idx, memberDetailDto.getEmail1());
+			pstmt.setString(++idx, memberDetailDto.getEmail2());
+			pstmt.setString(++idx, memberDetailDto.getId());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				memberDetailDto = new MemberDetailDto();
+				memberDetailDto.setPass(rs.getString("pass"));
+			}
+			
+			cnt = rs.getInt(1);
+			
+			System.out.println("DAO - getPassSearch pass>>>" + memberDetailDto.getPass());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			cnt = 0;
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+		return memberDetailDto;
+	}
 
+	@Override
+	public int getPassChange(MemberDetailDto memberDetailDto) {
+		int cnt = 0;
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+				
+			conn = DBConnection.makeConnection();
+			String sql = "";
+			sql += " update member m \n" ; 
+			sql += " set m.pass = ? \n" ;
+			sql += " where m.id = ?  " ;
+			
+			System.out.println("DAO_getPassChange>>>>" + memberDetailDto.getName());
+			System.out.println("DAO_getPassChange>>>>" + memberDetailDto.getPass());
+			
+			pstmt = conn.prepareStatement(sql);
+			int idx = 0; 
+			pstmt.setString(++idx, memberDetailDto.getPass());
+			pstmt.setString(++idx, memberDetailDto.getId());
+			
+			cnt = pstmt.executeUpdate();
+			System.out.println("DAO_getPassChange>>cnt>>" + cnt);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			cnt = 0;
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+		return cnt;
+	}
 
 
 }

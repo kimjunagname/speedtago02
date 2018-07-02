@@ -12,7 +12,11 @@ public interface MemberDao {
 	int registerMember(MemberDetailDto memberDetailDto);
 	MemberDetailDto getMember(String id);
 	int modifyMember(MemberDetailDto memberDetailDto);
-	void deleteMember(String id);
+	int deleteMember(String id);
 	MemberDto login(Map<String, String> map);
 	
+	MemberDetailDto getIdSearch(MemberDetailDto memberDetailDto);
+	MemberDetailDto getPassSearch(MemberDetailDto memberDetailDto);
+	
+	int getPassChange(MemberDetailDto memberDetailDto);
 }

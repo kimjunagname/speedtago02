@@ -28,12 +28,17 @@ public interface MemberService {
 	int modifyMember(MemberDetailDto memberDetailDto);
 	
 	//회원정보 삭제 > int cnt
-	void deleteMember(String id);
+	int deleteMember(String id);
 	
 	//로그인시 > name, id, 이메일(dto)
 	//로그인시 이름, id, 이메일 가져옴	
 	MemberDto login(String id, String pass);
 	
+	//id 찾기
+	MemberDetailDto getIdSearch(MemberDetailDto memberDetailDto);
+	//pass 찾기
+	MemberDetailDto getPassSearch(MemberDetailDto memberDetailDto);
 	
+	int getPassChange(MemberDetailDto memberDetailDto);
 	
 }

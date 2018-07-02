@@ -1,9 +1,11 @@
 -- 회원
 DROP TABLE member;
 select * from member;
+
 -- 회원상세
 DROP TABLE member_detail;
 select * from member_detail;
+
 -- 회원
 CREATE TABLE member (
 	id       varchar2(16) NOT NULL, -- 아이디
@@ -16,8 +18,6 @@ CREATE TABLE member (
 	constraint member_id_pk primary key (id)
 	
 );
-
-
 출처: http://ukja.tistory.com/187 [오라클 성능 문제에 대한 통찰 - 조동욱]
 
 -- 회원상세
@@ -142,4 +142,45 @@ md_tel3 = '1234';
 delete from member_detail where id = 'user2';
 delete from member where id = 'user2';
 
+--id 찾기
+select m.id
+from member m 
+where m.name = '김' 
+and m.email1 = 'many'
+and m.email2 = 'naver.com';
 
+select * from
+member;
+
+--pass 찾기
+select m.pass
+from member m 
+where m.name = '김' 
+and m.email1 = 'many'
+and m.email2 = 'naver.com'
+and m.id = 'user1';
+
+--id 찾기
+select m.id
+from member m 
+where m.name = '김' 
+and m.email1 = 'many'
+and m.email2 = 'naver.com'
+and m.id = 'user1';
+
+--pass 변경
+update member m
+set m.pass = '1234'
+where m.name = '김' 
+and m.email1 = 'many'
+and m.email2 = 'naver.com'
+and m.id = 'user1';
+
+
+update member m
+set m.pass = '1234'
+where m.id = 'user1';
+
+select * from member;
+
+commit

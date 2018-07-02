@@ -9,3 +9,38 @@ from member;
 
 
 select * from tab;
+
+
+"insert all \n";
+			sql += "into member (name, pass, email1, email2, joindate) \n";
+			sql += "values (?, ?, ?, ?, sysdate) \n";
+			sql += "into member_detail ( zipcode, addr1, addr2, tel1, tel2, tel3) \n";
+			sql += "values ( ?, ?, ?, ?, ?, ?)";
+			sql += "select * from dual";
+	
+			
+alter table member add constraint member_id_pk primary key (id);			
+			
+alter view member compile;
+alter view member_detail compile;
+
+select 
+  column_name, updatable, insertable, deletable
+from 
+  user_updatable_columns
+where
+  table_name = 'member';		
+			
+
+
+
+
+
+select * from member_detail;
+select * from member;
+
+
+
+
+
+
