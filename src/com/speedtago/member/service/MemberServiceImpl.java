@@ -1,6 +1,9 @@
 package com.speedtago.member.service;
 
 import java.util.*;
+import java.util.regex.Pattern;
+
+import javax.swing.JOptionPane;
 
 import com.speedtago.member.dao.MemberDao;
 import com.speedtago.member.dao.MemberDaoImpl;
@@ -33,6 +36,17 @@ private MemberDao memberDao;
 	public MemberDetailDto getMember(String id) {
 		System.out.println("services>>>>" + id);
 		System.out.println("services>>>>" + memberDao);
+		
+		//java에서 지원하는 기본 정규식 표현 - 특수문자 검출
+	    //http://superfelix.tistory.com/70 참조
+	    //boolean idCheck = false; 
+	    //idCheck = Pattern.matches("^[a-zA-Z0-9]*$", id);
+	    //영어, 숫자: true, 특수문자: false
+
+	    //특수 문자 입력시 로그인 실패 - 로그인창 꺼짐
+	    //if(idCheck == false) { 
+	   //   System.out.println("서비스 - 특수값이 입력되었습니다.  다시 실행 해주세요!!");
+	   //  } 
 		
 		return memberDao.getMember(id);
 	}
