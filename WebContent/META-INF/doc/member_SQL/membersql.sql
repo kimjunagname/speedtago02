@@ -176,11 +176,14 @@ and m.email1 = 'many'
 and m.email2 = 'naver.com'
 and m.id = 'user1';
 
-
+--비밀번호 바꾸기
 update member m
 set m.pass = '1234'
 where m.id = 'user1';
 
-select * from member;
-
+--조회
+select * 
+from member
+where id = 'many4354137';
+--커밋
 commit

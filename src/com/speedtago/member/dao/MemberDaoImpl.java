@@ -252,11 +252,13 @@ public class MemberDaoImpl implements MemberDao {
 		ResultSet rs = null;
 		try {
 			conn = DBConnection.makeConnection();
+			conn.setAutoCommit(false);
 			String sql = "";
 			sql += "delete from member_detail where id = ? \n";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
+			pstmt.close();
 			
 			sql = "";
 			sql += "delete from member where id = ? \n";
@@ -265,15 +267,13 @@ public class MemberDaoImpl implements MemberDao {
 			rs = pstmt.executeQuery();
 
 			cnt = 1;
+			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			cnt = 0;
+			
 			try {
-				conn = DBConnection.makeConnection();
-				String sql = "";
-				sql += " roolback; \n" ; 
-				pstmt = conn.prepareStatement(sql);
-				pstmt.executeUpdate();
+				conn.rollback();
+				cnt = 0;
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -381,6 +381,7 @@ public class MemberDaoImpl implements MemberDao {
 		try {
 				
 			conn = DBConnection.makeConnection();
+
 			String sql = "";
 			sql += " select m.pass, m.id \n" ; 
 			sql += " from member m \n" ;
@@ -389,10 +390,10 @@ public class MemberDaoImpl implements MemberDao {
 			sql += " and m.email2 = ?  \n" ;
 			sql += " and m.id = ?  " ;
 			
-			System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getName());
-			System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getEmail1());
-			System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getEmail2());
-			System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getId());
+			//System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getName());
+			//System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getEmail1());
+			//System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getEmail2());
+			//System.out.println("DAO_getPassSearch>>>>" + memberDetailDto.getId());
 			
 			pstmt = conn.prepareStatement(sql);
 			int idx = 0; 
@@ -402,6 +403,7 @@ public class MemberDaoImpl implements MemberDao {
 			pstmt.setString(++idx, memberDetailDto.getId());
 			
 			rs = pstmt.executeQuery();
+			
 			
 			if(rs.next()) {
 				memberDetailDto = new MemberDetailDto();
@@ -435,8 +437,8 @@ public class MemberDaoImpl implements MemberDao {
 			sql += " set m.pass = ? \n" ;
 			sql += " where m.id = ?  " ;
 			
-			System.out.println("DAO_getPassChange>>>>" + memberDetailDto.getName());
-			System.out.println("DAO_getPassChange>>>>" + memberDetailDto.getPass());
+			//System.out.println("DAO_getPassChange>>>>" + memberDetailDto.getName());
+			//System.out.println("DAO_getPassChange>>>>" + memberDetailDto.getPass());
 			
 			pstmt = conn.prepareStatement(sql);
 			int idx = 0; 
@@ -444,7 +446,7 @@ public class MemberDaoImpl implements MemberDao {
 			pstmt.setString(++idx, memberDetailDto.getId());
 			
 			cnt = pstmt.executeUpdate();
-			System.out.println("DAO_getPassChange>>cnt>>" + cnt);
+			//System.out.println("DAO_getPassChange>>cnt>>" + cnt);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
