@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>출발 도착지 선택</title>
+<title>대여 반납지 선택</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <!-- Import jquery.min.js -->
@@ -27,12 +27,20 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script src="<%=root %>/assets/js/geolocation.js"></script>
-
+<script type="text/javascript">
+function selectMap(){
+  var start = document.getElementById("start").value;
+  var end = document.getElementById("end").value;
+  opener.document.getElementById("rentalpost").value = start;
+  opener.document.getElementById("returnpost").value = end;
+  self.close();
+}
+</script>
 </head>
 <body>
   <nav style="background-color:lightblue">
       <div align="center">
-         <font size="5" color="black"><b>출발 도착지 선택</b></font>
+         <font size="5" color="black"><b>대여 반납지 선택</b></font>
       </div>
   </nav>
   <div class="row">
@@ -41,9 +49,9 @@
         <form class="offset-s6 col s3" style="margin-top: 6%;">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="text" id="start" placeholder="출발지 주소를 입력하세요.">
+                        <input type="text" id="start" placeholder="대여지 주소를 입력하세요.">
                         <div>
-                            <input class="btn btn-default" type="button" style="background-color: rgba(250, 170, 50, 0.5);" value="출발지 등록" onclick="search('#start')">
+                            <input class="btn btn-default" type="button" style="background-color: rgba(250, 170, 50, 0.5);" value="대여지등록" onclick="search('#start')">
                             &nbsp;&nbsp;&nbsp;
                             <button class="waves-effect waves-light btn col s5" type="button" onclick="geoLocation('s')">
                                 <i class="material-icons left">center_focus_weak</i>  내 위치
@@ -54,9 +62,9 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="text" id="end" placeholder="도착지 주소를 입력하세요.">
+                        <input type="text" id="end" placeholder="반납지 주소를 입력하세요.">
                         <div>
-                           <input class="btn btn-default" type="button" style="background-color: rgba(250, 170, 50, 0.5);" value="도착지 등록" onclick="search('#end')">
+                           <input class="btn btn-default" type="button" style="background-color: rgba(250, 170, 50, 0.5);" value="반납지 등록" onclick="search('#end')">
                         </div>
                     </div>
 
@@ -66,8 +74,8 @@
                                 <i class="material-icons right">send</i>경로 탐색
                         </button>
                         <br>
-                        <button class="waves-effect waves-light btn" style="background-color: blue;" type="button" onclick="">
-                                                      출발 도착지 등록하기
+                        <button class="waves-effect waves-light btn" style="background-color: blue;" type="button" onclick="javascript:selectMap();">
+                                                      대여 반납지 등록하기
                         </button>
                     </div>
                 </div>

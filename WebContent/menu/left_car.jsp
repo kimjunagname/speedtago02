@@ -42,12 +42,7 @@
 						<tr>
 							<td><a href="<%=root %>/reservation/reservation_reservation.jsp"><h4>차량예약</h4></a><br></td>
 						</tr>
-						<tr>
-							<td><a href="<%=root %>/reservation/reservation_payment.jsp"><h4>내역확인및결제</h4></a><br></td>
-						</tr>
-						<tr>
-							<td><a href="<%=root %>/reservation/reservation_complete.jsp"><h4>완료</h4></a><br></td>
-						</tr>
+						
 					</table>
 					</section>
 				</div>
