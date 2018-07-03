@@ -5,6 +5,42 @@
 <!-- ---------------상단 고정-------------------- -->
 <%@ include file="/menu/top.jsp"%>
 <!-- ----------------------------------------- -->
+<style>
+div.wrap > div{
+  font-size: 12px;
+  position: relative;
+  float: left;
+  margin-right: 5px;
+  height: 30px;
+  line-height: 30px;
+  vertical-align: middle;
+  input{
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100px;
+  }  
+}
+#ui-datepicker-div{
+ top:-999px; 
+ border: 0;
+ font-size: 14px;
+}
+.ui-datepicker-header{
+  font-size: 13px;
+}
+.ui-datepicker-calendar{
+  background-color: #fff;
+  border: 1px solid #ddd;
+  
+  tr{
+    font-size: 11px;
+  }
+}
+</style>
+
 <script type="text/javascript">
 function categoryChange(e){
  var car_small = ["스파크", "엑센트", "마티즈", "티볼리"];
@@ -28,6 +64,49 @@ function categoryChange(e){
 }
 function openMap() {
   window.open("<%=root%>/car?act=mvopenMap","map","top=200, left=300, width=4000, height=5000, menubar=no, status=no, toolbar=no, location=no, scrollbars=yes");
+}
+function calcPay(){
+  // 대여일, 반납일이 null값이 아닐 경우에만 계산 처리한다.
+  if(document.getElementById("startdate").value != "" && document.getElementById("enddate").value != ""){
+        var startdate = document.getElementById("startdate").value;
+        var enddate = document.getElementById("enddate").value;
+         var target = document.getElementById("carinfo");
+         // 대여일, 반납일 '-'기준으로 쪼개어 배열로 지정
+        var arr1 = startdate.split('-');
+        var arr2 = enddate.split('-');
+        // std : 대여일, edd : 종료일 -> new Date 선언후 배열값을 인자값으로 담는다.
+        var std = new Date(arr1[0], arr1[1], arr1[2]);
+        var edd = new Date(arr2[0], arr2[1], arr2[2]);
+        
+        // 날짜 차이 알아내기
+        var diff = edd-std; 
+        var currDay = 24*60*60*1000; // 시*분*초*밀리세컨
+        var currMonth = currDay * 30; // 월 만듬
+        var currYear = currMonth*12; // 년 만듬
+        var calc; // 요금 계산값
+        // daylength : 차이값 (+1 한 이유 : 차량 빌린 해당 날부터 1일 추가 해야 하므로)  
+        var daylength = parseInt(diff/currDay)+1;
+        // 날짜 입력이 잘못되었을 경우
+        if(daylength <= 0){
+           alert("날짜 입력이 잘못되었습니다.");
+           return;
+        }
+        // 값계산 - *소형 1일 기준 10,000 *중형 1일기준 15,000 *대형 1일기준 20,000, 값 선택 x alert & 계산값은 빈값처리 
+        if(target.options[target.selectedIndex].value == 'small'){
+          calc = daylength*10000;
+        } else if(target.options[target.selectedIndex].value == 'middle'){
+          calc = daylength*15000;
+        } else if(target.options[target.selectedIndex].value == 'big'){
+          calc = daylength*20000;
+        } else{
+          alert("차종을 선택해주세요.");
+          calc = "";
+        }
+        document.getElementById("calview").value =  calc;
+  } else {
+    alert("예약일 반납일을 선택하세요.");
+    return;
+  }  
 }
 </script>
 <br>
@@ -71,35 +150,32 @@ function openMap() {
 
         <tr>
           <th>예약일</th>
-          <td colspan="2"><input type="date" id="startdate"
-            name="startdate"
-            style="text-align: left; width: 300px; height: 30px;">
-            <input type="time" id="starttime" name="starttime"
-            style="text-align: left; width: 300px; height: 30px;">
+          <td colspan="2">
+            <input type="date" id="startdate" name="startdate" style="text-align: left; width: 300px; height: 30px;">
+            <input type="time" id="starttime" name="starttime" style="text-align: left; width: 300px; height: 30px;">
           </td>
         </tr>
         <tr>
           <th>반납일</th>
-          <td colspan="2"><input type="date" id="enddate"
-            name="enddate"
-            style="text-align: left; width: 300px; height: 30px;">
-            <input type="time" id="enddate" name="enddate"
-            style="text-align: left; width: 300px; height: 30px;">
+          <td colspan="2">
+            <input type="date" id="enddate" name="enddate" style="text-align: left; width: 300px; height: 30px;">
+            <input type="time" id="enddate" name="enddate" style="text-align: left; width: 300px; height: 30px;">
           </td>
         </tr>
         <tr>
           <th>차종</th>
-          <td colspan="2"><select
-            onchange="javascript:categoryChange(this);">
-              <option value="small" selected="selected">소형</option>
-              <option value="middle">중형</option>
-              <option value="big">승합</option>
+          <td colspan="2">
+          <select id="carinfo" onchange="javascript:categoryChange(this);">
+              <option>---</option>
+              <option id ="small" value="small">소형</option>
+              <option id ="middle" value="middle">중형</option>
+              <option id ="big" value="big">승합</option>
           </select></td>
         </tr>
         <tr>
           <th>차량명</th>
           <td colspan="2"><select id="car">
-              <option selected="selected"></option>
+              <option id ="carname" selected="selected"></option>
           </select></td>
         </tr>
         <tr>
@@ -123,22 +199,19 @@ function openMap() {
         </tr>
         <tr>
           <th>총 결제금액</th>
-          <td><input type="text" id="paycalview"
-            readonly="readonly" name="paycalview"
-            style="text-align: left; width: 150px; height: 30px;">
+          <td>
+            <input type="text" id="calview" readonly="readonly" name="calview"  value="" style="text-align: left; width: 150px; height: 30px; ">
           </td>
           <td>
-            <button type="button" class="btn btn-primary btn-sm" onclick="">요금계산하기</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="javascript:calcPay();">요금계산하기</button>
             <button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#inform">요금안내</button>
           </td>
         </tr>
         <tr>
           <td align="left"><input type="button" value="취소"
             onclick=""></td>
-          <td align="right" colspan="2">
-          <input type="button" value="다음단계" onclick=""><a href="<%=root %>/reservation/reservation_payment.jsp"></a>
-          </td>
-          
+          <td align="right" colspan="2"><input type="button"
+            value="다음단계" onclick=""></td>
         </tr>
       </table>
     </article>

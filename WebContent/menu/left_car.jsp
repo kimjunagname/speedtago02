@@ -33,14 +33,14 @@
 						<tr>
 							<td><h2></h2></td>
 						</tr>
-						<tr>
-							<td><a href="<%=root %>/reservation/reservation_guide.jsp"><h4>이용가이드</h4></a><br></td>
+						<tr>    
+							<td><a href="<%=root %>/menu?act=mvguide"><h4>이용가이드</h4></a><br></td>
 						</tr>
 						<tr>
-							<td><a href="<%=root %>/reservation/reservation_carinfo_list.jsp"><h4>차량정보</h4></a><br></td>
+							<td><a href="<%=root %>/menu?act=mvcarinfo"><h4>차량정보</h4></a><br></td>
 						</tr>
 						<tr>
-							<td><a href="<%=root %>/reservation/reservation_reservation.jsp"><h4>차량예약</h4></a><br></td>
+							<td><a href="<%=root %>/menu?act=mvreservation"><h4>예약하기</h4></a><br></td>
 						</tr>
 						
 					</table>

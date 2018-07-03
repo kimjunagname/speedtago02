@@ -27,14 +27,12 @@
 							<tr>
 								<td><h2>카테고리</h2></td>
 							</tr>
+							
 							<tr>
-								<td ><a href="<%=root %>/mypage/mypage_modify.jsp"><h4>내정보</h4></a><br></td>																			
+								<td ><a href="<%=root %>/menu?act=mvresercheck"><h4>예약확인</h4></a><br></td>
 							</tr>
 							<tr>
-								<td ><a href="<%=root %>/mypage/mypage_resercheck.jsp"><h4>예약확인</h4></a><br></td>
-							</tr>
-							<tr>
-								<td ><a href="<%=root %>/mypage/mypage_point.jsp"><h4>포인트</h4></a><br></td>
+								<td ><a href="<%=root %>/menu?act=mvpoint"><h4>포인트</h4></a><br></td>
 							</tr>
 						</table>
 						</section>

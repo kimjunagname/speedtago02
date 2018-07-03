@@ -28,19 +28,19 @@
 							<td><h2>카테고리</h2></td>
 						</tr>
 						<tr>
-							<td><a href="<%=root %>/bfcourse/bfcourse_list.jsp"><h4>BF추천코스</h4></a><br></td>
+							<td><a href="<%=root %>/menu?act=mvbflist"><h4>BF추천코스</h4></a><br></td>
 						</tr>
 						<tr>
-							<td><a href="<%=root %>/rfcourse/rfcourse_list.jsp"><h4>추천여행코스</h4></a><br></td>
+							<td><a href="<%=root %>/menu?act=mvrfcourse"><h4>추천여행코스</h4></a><br></td>
 						</tr>
 						<tr>
-							<td><a href="<%=root %>/treview/treview_list.jsp"><h4>여행후기</h4></a><br></td>
+							<td><a href="<%=root %>/menu?act=mvtreview"><h4>여행후기</h4></a><br></td>
 						</tr>
 						<tr>
-							<td><a href="<%=root %>/video/video_list.jsp"><h4>영상</h4></a><br></td>
+							<td><a href="<%=root %>/menu?act=mvvideo"><h4>영상</h4></a><br></td>
 						</tr>
 						<tr>
-							<td><a href="<%=root %>/photo/photo_list.jsp"><h4>포토</h4></a><br></td>
+							<td><a href="<%=root %>/menu?act=mvphoto"><h4>포토</h4></a><br></td>
 						</tr>
 					</table>
 					</section>

@@ -237,7 +237,7 @@ public class MemberController extends HttpServlet {
 			PageMove.redirect(request, response, "/index.jsp");		 
 			}
 			
-		}else if("mvmypage".equals(act)) {
+		}else if("mvmyinfor".equals(act)) {
 			//mypage: top > act=mvmypage_modify > membercontroller > /mypage/mypage_modify.jsp ¿Ãµø
 			
 			HttpSession session = request.getSession();

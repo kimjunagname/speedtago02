@@ -29,7 +29,7 @@
 							<td><h2>카테고리</h2></td>
 						</tr>
 						<tr>
-							<td><a href="<%=root %>/travel/travel_list.jsp"><h4>홍보영상</h4></a><br></td>
+							<td><a href="<%=root %>/menu?act=mvtravel"><h4>홍보영상</h4></a><br></td>
 						</tr>
 					</table>
 					</section>

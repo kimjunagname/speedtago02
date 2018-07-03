@@ -70,7 +70,8 @@
 	} else {
 	%>
      	 <em><%=memberDto.getId() %>WelCome|</em>
-		 <em><a href="<%=root %>/user?act=mvmypage">MyPage|</em></a>
+		 <em><a href="<%=root %>/user?act=mvmyinfor">MyInfor|</em></a>
+		 <em><a href="<%=root %>/menu?act=mvresercheck">MyPage|</em></a>
 		 <em><a href="<%=root%>/user?act=mvlogout">LogOut|</em></a>
 
 		 
@@ -80,40 +81,46 @@
 	</div>
 	
 	<h1>
-		<a href="<%=root %>/user?act=" id="logo">신개념 차량예약 <font color="blue">
+		<a href="<%=root %>/user?act=mvindex" id="logo">신개념 차량예약 <font color="blue">
 				<em>빨리타카!!</em>
 		</font></a>
 	</h1>
 
 	<!-- Nav -->
 	<nav id="nav">
-		<ul>
-			<li class="current"><a href="<%=root %>/user?act=">Home</a></li>
-			<li><a href="<%=root %>/reservation/reservation_guide.jsp">차량예약</a>
+		<ul>					
+			<li class="current"><a href="<%=root %>/user?act=mvindex">Home</a></li>
+			<li><a href="<%=root %>/menu?act=mvreservation">차량예약</a>
 				<ul>
-					<li><a href="<%=root %>/reservation/reservation_reservation.jsp">예약하기</a></li>
-					<li><a href="<%=root %>/reservation/reservation_carinfo_list.jsp">차량정보</a></li>
-					<li><a href="<%=root %>/reservation/reservation_guide.jsp">이용가이드</a></li>
+					<li><a href="<%=root %>/menu?act=mvguide">이용가이드</a></li>
+					<li><a href="<%=root %>/menu?act=mvcarinfo">차량정보</a></li>
+					<li><a href="<%=root %>/menu?act=mvreservation">예약하기</a></li>
+					
 				</ul></li>
-			<li><a href="<%=root %>/bfcourse/bfcourse_list.jsp">여행정보</a>
+			<li><a href="<%=root%>/menu?act=mvbflist">여행정보</a>
 				<ul>
-					<li><a href="<%=root %>/bfcourse/bfcourse_list.jsp">BF추천코스</a></li>
-					<li><a href="<%=root %>/rfcourse/rfcourse_list.jsp">추천여행코스</a></li>
-					<li><a href="<%=root %>/treview/treview_list.jsp">여행후기</a></li>
-					<li><a href="<%=root %>/video/video_list.jsp">영상</a></li>
-					<li><a href="<%=root %>/photo/photo_list.jsp">포토</a></li>
+					<li><a href="<%=root %>/menu?act=mvbflist">BF추천코스</a></li>
+					<li><a href="<%=root %>/menu?act=mvrfcourse">추천여행코스</a></li>
+					<li><a href="<%=root %>/menu?act=mvtreview">여행후기</a></li>
+					<li><a href="<%=root %>/menu?act=mvvideo">영상</a></li>
+					<li><a href="<%=root %>/menu?act=mvphoto">포토</a></li>
 				</ul>
 			</li>
-			<li><a href="<%=root %>/notice/notice_list.jsp">소식</a>
+			<li><a href="<%=root %>/menu?act=mvnotice">소식</a>
 				<ul>
-					<li><a href="<%=root %>/notice/notice_list.jsp">공지사항</a></li>
-					<li><a href="<%=root %>/news/news_list.jsp">계간초록여행</a></li>
-
+					<li><a href="<%=root %>/menu?act=mvnotice">공지사항</a></li>
+					<li><a href="<%=root %>/menu?act=mvnews">계간초록여행</a></li>
 				</ul>
 			</li>
 
-			<li><a href="<%=root %>/travel/travel_list.jsp">홍보영상</a></li>
-			<li><a href="<%=root %>/qa/qa_list.jsp">Q&A</a></li>
+			<li><a href="<%=root %>/menu?act=mvtravel">홍보영상</a></li>
+				
+			<li><a href="<%=root %>/menu?act=mvqa">Q&A</a>
+				<ul>
+					<li><a href="<%=root %>/menu?act=mvqa">자주묻는 질문</a></li>
+					<li><a href="<%=root %>/menu?act=mvconsult">1:1 상담</a></li>
+				</ul>
+			</li>	
 		</ul>
 	</nav>
 </div>
